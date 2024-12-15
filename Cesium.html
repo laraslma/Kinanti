@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Kinanthi Residence 4 UGM</title>
+  <link rel="icon" type="image/x-icon" href="assets/img/bw_ugm.png" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+
+  <!-- Include the CesiumJS JavaScript and CSS files -->
+
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.112/Build/Cesium/Cesium.js"></script>
+
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.112/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cesiumjs.org/Cesium/Build/Apps/Sandcastle/templates/bucket.css">
+  <script src = "https://sandcastle.cesium.com/Sandcastle-header.js"></script>
+  
+
+  
+  
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Custom Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+
+  <style>
+    /* CSS untuk mengatur ukuran Cesium Viewer */
+    #cesiumContainer {
+      width: 100%; /* Set lebar ke 80% dari viewport */
+      height: 90vh; /* Set tinggi ke 60% dari tinggi viewport */
+      margin-top: 70px; /* Untuk menempatkan di tengah horizontal */
+      border: 2px solid #004A74; /* Opsional: Tambahkan border untuk kejelasan */
+    }
+  </style>
+
+
+  <style type="text/css">
+    #toggle-fpv { z-index: 1; position: fixed; top: 100px; left: 15px; }
+  </style>
+
+
+
+
+</head>
+
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <a href="index.html" class="d-flex align-items-center logo me-auto">
+      </a>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+  
+       <!-- Navigation-->
+       <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+            <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Kinanti Residence 4 UGM</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Cesium.html">Model 3D Bangunan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Hubungi Kami</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+  
+  </header>
+  
+
+  <div id="cesiumContainer" ></div>
+  <script type="module">
+
+     // Replace number below with buildingID of your uploaded model on cesium ion at: https://ion.cesium.com/assets
+     const buildingID=  2922990;
+
+    // Your access token can be found at: https://ion.cesium.com/tokens.
+    // Replace your_access_token with your Cesium ion access token.
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MjUwMDJkYi1hNjUzLTQ1ODktYTgwMS0wOTgwZTkzYTExMGUiLCJpZCI6MjYxODMzLCJpYXQiOjE3MzQwODM5NzR9.O5FMtyAUqx7wCEQJiiTuA153klFrO5dDqTQ-x3tuqus';
+
+    // Initialize the Cesium Viewer in the HTML element with the cesiumContainer ID.
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      terrain: Cesium.Terrain.fromWorldTerrain(),
+    });    
+
+    // Add the 3D Tileset you created from your Cesium ion account.
+    const newBuildingTileset = await Cesium.Cesium3DTileset.fromIonAssetId(buildingID);
+    viewer.scene.primitives.add(newBuildingTileset);
+
+    // Fly the camera to Denver, Colorado at the given longitude, latitude, and height.
+    viewer.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(   110.37700, -7.764,  200),
+    orientation: {
+        heading: Cesium.Math.toRadians(45), // Angle of rotation around the vertical axis (eastward)
+        pitch: Cesium.Math.toRadians(0), // Angle from the horizon (downward)
+        roll: 0 // Rotation around the camera's direction axis
+    },
+    duration: 3 // Optional: Fly to the destination in 3 seconds
+    });
+
+  
+
+      
+      </script>
+
+    </div>
+
+</body>
+
+</html>
